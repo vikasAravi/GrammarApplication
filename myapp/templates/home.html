@@ -1,0 +1,140 @@
+<!-- templates/home.html-->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>{{ question.question }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+    .navbar-brand{
+        margin-top: 17px;
+        color: white;
+        font-size: 35px;
+        margin-left: 20px;
+    }
+    .navbar-left{
+        margin-right: 15px;
+        margin-top: 17px;
+        
+        height: 50px; 
+        width:50px;
+}
+
+        body{
+            background-color: #edf3f5;
+
+        }
+
+
+        #q:hover{
+             background-color: #f9f9f9;
+        }
+        button a{
+             text-decoration: none;
+        }
+        button{
+
+             margin-left: 80%;
+            padding-left: 20px;
+            padding-right: 20px;
+             background-color: green;
+             cursor: pointer;
+            border:1px solid darkgreen;
+            border-radius: 10px;
+         }
+
+        ul{
+            margin-left: 150px;
+
+        }
+        button h4{
+            color: white;
+        }
+        button:hover{
+            opacity: 0.7;
+        }
+         #q{
+
+             list-style: None;
+             background-color: #fff;
+             margin-right: 30%;
+             padding-left: 10px;
+             padding-top: 25px;
+             padding-bottom: 25px;
+             border: 1px solid #d8dee2;
+
+             z-index: -1;
+         }
+         
+         h2{
+             margin-left:190px;
+             font-size:30px;
+             color: black;
+         }
+
+    .Hi li a{
+        float: right;
+        display: inline-block;
+    }
+    .Hello{
+        list-style-type: none;
+
+    }
+    .Hello li a{
+        font-size: 18px;
+        text-decoration: none;
+    }
+    li .on{
+        padding:30px;
+        margin-right: 20px;
+        color:white;
+    }
+    li .tw{
+        padding: 30px;
+        color: white;
+    }
+    li .on:hover,li .tw:hover{
+        background-color: darkslategray;
+    }
+    </style>
+
+<body>
+ {% block content %}
+        {% if user.is_authenticated %}
+<nav class="navbar navbar-inverse ">
+  <div class="container-fluid">
+      <img class="navbar-left" src="{% static "images/correct.png" %}" >
+      <p class="navbar-brand">Grammar Expert</p>
+
+   <div class="Hi">
+
+       <ul class="Hello">
+
+              <li><a class="tw" href="{% url "homepage" %}"><span class="glyphicon glyphicon-sign-up"></span>Logout</a></li>
+            <li><a class="on" href="#">Hi {{ user.username }}!</a></li>
+       </ul>
+</div>
+
+  </div>
+</nav>
+            <h2 >Questions:</h2>
+    <div>
+          <ul>
+                {% for question in object_list %}
+                <div id="q">
+                  <h4><li>{{ question }}<button><a href="{% url 'answer' question.id %}"><h4>Attempt</h4></a></button></li></h4>
+                </div>
+                {% endfor %}
+          </ul>
+</div>
+        {% else %}
+          <p>You are not logged in</p>
+          <a href="{% url 'login' %}">login</a>
+        {% endif %}
+        {% endblock %}
+</body>
+</html>
