@@ -51,7 +51,7 @@ def answer_view(request, qid):
             answer_object = form.save(commit=False)
             answer_object.user = request.user
             answer_object.question = context["question"]
-            answer_object.score = results["score"]
+           # answer_object.score = results["score"]
             answer_object.save()
     else:
         form = AnswerForm()
@@ -66,5 +66,5 @@ def fetch_results(request):
          return HttpResponse("hey") 
     if request.method == "POST":
         d = Report(request.POST['essay']).reprJSON()
-        #return HttpResponse(json.dumps(d))
-    return render(request,template_name="answer.html",context={"obj":json.dumps(d)})
+        # return HttpResponse(json.dumps(d))
+        return render(request,template_name="answer.html",context={"obj":json.dumps(d)})
