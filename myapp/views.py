@@ -51,7 +51,7 @@ def answer_view(request, qid):
             answer_object = form.save(commit=False)
             answer_object.user = request.user
             answer_object.question = context["question"]
-            answer_object.score = results["score"]
+           # answer_object.score = results["score"]
             answer_object.save()
     else:
         form = AnswerForm()
