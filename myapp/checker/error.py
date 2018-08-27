@@ -10,11 +10,11 @@ class Error:
         self.rule = Rule(m['rule'])
     
     def errorType(self):
-        if "spelling" in self.title:
+        if "spelling" in self.title.lower():
             return "spelling"
         else:
             return "grammar"
 
     def reprJSON(self):
-        return dict(message=self.message, title=self.title, offset=self.offset,
+        return dict(message=self.message, type=self.errorType(), title=self.title, offset=self.offset,
         length = self.length, suggestions = self.suggestions, rule = self.rule.__dict__)

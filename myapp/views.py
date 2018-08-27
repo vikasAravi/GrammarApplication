@@ -66,5 +66,5 @@ def fetch_results(request):
          return HttpResponse("hey") 
     if request.method == "POST":
         d = Report(request.POST['essay']).reprJSON()
-        #return HttpResponse(json.dumps(d))
-    return render(request,template_name="answer.html",context={"obj":json.dumps(d)})
+        return HttpResponse(json.dumps(d))
+    #return render(request,template_name="answer.html",context={"obj":json.dumps(d)})

@@ -10,7 +10,7 @@ urlpatterns = [
     path('signup/', views.SignUp.as_view(), name='signup'),
     path('home/', QuestionsListView.as_view(), name='home'),
     path('home/<int:qid>', views.answer_view, name='answer'),
-    path('homepage/',views.HomePage_view,name='homepage'),
+    path('',views.HomePage_view,name='homepage'),
     path('fetch/',views.fetch_results,name='fetch_results'),
 
 ]

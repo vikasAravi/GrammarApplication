@@ -1,305 +1,84 @@
 {% load static %}
-<!DOCTYPE html>
-{% load bootstrap4 %}
+<!DOCTYPE html> {% load bootstrap4 %}
 <html lang="en">
-<head>
-    <tag autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-    <meta charset="UTF-8">
-    <title>{{ question.question }}</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<head>
+    <tag autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Essay Checker</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <style>
-     ul{
-         list-style-type: none;
-     }
-    .bye li h4{
-        float: right;
-        display: inline-block;
-        margin-left: 150px;
-        margin-right: 20px;
-    }
-    .report {
-        background-color: yellow;
-        border-bottom: 1px solid black;
-    }
-    #time{
-        padding: 15px;
-        color: white;
-        border-radius: 5px;
-    }
-     .navbar-brand{
-         margin-top: 17px;
-        color: white;
-        font-size: 35px;
-        margin-left: 20px;
-    }
-    .navbar-left{
-        margin-right: 15px;
-        margin-top: 17px;
-        height: 50px;
-        width:50px;
-}
-    .Hi li a{
-        float: right;
-        display: inline-block;
-    }
-     .Hello{
-        list-style-type: none;
+<link rel="stylesheet" href="{% static "answer.css"%}"/>
 
-    }
-    .Hello li a{
-        font-size: 18px;
-        text-decoration: none;
-    }
-    li .on{
-        padding:30px;
-        margin-right: 20px;
-        color:white;
-    }
-    li .tw{
-        padding: 30px;
-        color: white;
-    }
-    li .on:hover,li .tw:hover{
-        background-color: darkslategray;
-    }
-
-        body{
-            background-color: #fff;
-
-        }
-
-         #id_answer,#answer{
-                height:410px;
-                width:60%;
-                margin-left: 20%;
-                margin-right:auto;
-                background-color: #fff;
-                border: 1px solid #d8dee2;
-                resize: none;
-                z-index: -1;
-            }
-            textarea {
-                outline: none;
-                box-shadow:none !important;
-                border:1px solid #ccc !important;
-                }
-         h3{
-             color: black;
-             margin-left: 30px;
-         }
-
-         button{
-            color:white;
-             margin-left: 70%;
-             padding: 15px;
-             padding-left: 50px;
-             padding-right: 50px;
-             background-color: green;
-             cursor: pointer;
-             border: 1px solid #d8dee2;
-             border-radius: 15px;
-             z-index: -1;
-
-         }
-    #res{
-        margin:40px;
-        padding:30px;
-        z-index: -1;
-
-    }
-     div p{
-         margin-left: 30px;
-     }
-
-    </style>
 <body>
 
-<nav class="navbar navbar-inverse ">
-  <div class="container-fluid">
-      <img class="navbar-left" src="{% static "images/correct.png" %}" >
-      <p class="navbar-brand">Grammar Expert</p>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2">
+                <a class="navbar-brand d-inline-block align-top" href="#">
+                    <img src="{% static "images/correct.png" %}" width="35" height="35" alt="">
+                    <a id="homelink" href="{% url "homepage" %}"><span>Grammar Expert</span></a>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-auto">
+                  <a class="nav-item nav-link pr-5">Hi {{ user.username }}!</a>
+                  <a class="nav-item nav-link pr-2" href="{% url "logout" %}">Logout</a>
+                </div>
+              </div>
+            </nav>
+    <div class="container">
+        <div class="row">
+                <h3 class="col-sm-8 col-md-8">{{ question.question }}</h3>
+                <h4 class="col-sm-3 col-md-3" id="time"></h4>
+        </div>
+        <div class="row">
+            <div class="col-sm-1 col-md-1"></div>
+            <textarea class="col-sm-10 col-md-10" id="id_answer" rows="20" cols="120" placeholder="Write your essay here"></textarea>
 
-   <div class="Hi">
-
-       <ul class="Hello">
-
-              <li><a class="tw" href="{% url "homepage" %}"><span class="glyphicon glyphicon-sign-up"></span>Logout</a></li>
-            <li><a class="on" href="#">Hi {{ user.username }}!</a></li>
-       </ul>
-</div>
-
-  </div>
-</nav>
-<ul class="bye">
-    <li><h3>{{ question.question }}</h3></li>
-    <li><h4 id="time"></h4></li>
-    <li><h4 id="result"></h4></li>
-</ul>
-
-
-    <form name="AnswerForm" method="post">
-        {% csrf_token %}
-        {% bootstrap_form form%}
-        <p id="answer"></p>
-        <button type="button" id="submit_button">Submit</button>
-{#        <p><input type="button" id="submit"></p>#}
-    </form>
-
-    <div id="res">
-        <p id="score"></p>
-        <p id="w_c"></p>
-        <p id="invalid"></p>
-        <p id="grammar"></p>
-        <p id="spelling"></p>
-        <p id = 'listoferrors'></p>
-        <p id = 'total_suggestions'></p>
-        <p id = 'essay'></p>
-    </div>
+            <p class="col-sm-10 col-md-10" id='essay'></p>
+            <div class="col-sm-1 col-md-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-md-2"></div>
+            <h4 class="col-sm-4 col-md-4" id="wordcount"></h4>
+            <button class="col-sm-4 col-md-4 btn btn-primary btn-lg" type="button"
+                    id="submit_button">Submit</button>
+        </div>
+        <div class="row" id="res">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Overall Score</th>
+                        <td id="score"></td>
+                    </tr>
+                    <tr>
+                        <th>Word Count</th>
+                        <td id="w_c"></td>
+                    </tr>
+                    <tr>
+                        <th>Grammar Errors</th>
+                        <td id="grammar"></td>
+                    </tr>
+                    <tr>
+                        <th>Spelling Mistakes</th>
+                        <td id="spelling"></td>
+                    </tr>
+                    <tr>
+                        <th>Word Limit Check</th>
+                        <td id="wordlimit">Essay does not meet required word limit</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 </body>
-{#<script src="{% static "js/answer.js" %}"></script>#}
-<script>
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie != '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-                    // Only send the token to relative URLs i.e. locally.
-                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                }
-            }
-        });
-    $('#submit_button').click(function(e){
-        var text = $('#id_answer').val();
-        $.post(
-            '/myapp/fetch/  ',
-            {
-                'essay':text,
-            },
-            function(data){
-                console.log(data)
-                alert(data)
-            }
-        )
-    });
-</script>
-<script>
-    var essay = document.getElementById("id_answer").value;
+<script src="{% static "answer.js" %}"></script>
 
-    document.getElementById("time").style.backgroundColor="cornflowerblue";
-    document.getElementById("time").innerText ="Time : 30:00"
-    document.getElementsByTagName("label")[0].innerText = "";
-    document.getElementById("id_answer").placeholder = "//Your answer goes here";
-{% if submitted %}
-    document.getElementById("res").style.backgroundColor="#edf3f5";
-    document.getElementById("res").style.borderColor="#d8dee2"
-    document.getElementById("res").style.borderRadius="20px";
-    document.getElementById("id_answer").disabled = true;
-    document.getElementById("submit_button").disabled = true;
-
-    document.getElementById("time").innerText = "{{ paused_time }}";
-    document.getElementById("score").innerHTML = "Score = {{ score }}";
-    {% if wc >= 150 %}
-        {
-
-        document.getElementById("w_c").innerHTML = "WordCount = {{ wc }}";
-        document.getElementById("grammar").innerHTML = "Grammar Errors = {{ ge }}";
-        document.getElementById("spelling").innerHTML = "Spelling Errors = {{ se }}";
-        document.getElementById('listoferrors').innerHTML = 'Errors = {{ le }}';
-    
-        document.getElementById('essay').innerHTML = "{{ essay | safe}}";
-
-
-    }
-        {% else %}
-    {
-
-        document.getElementById("invalid").innerHTML = "Sorry!!Word Limit is Not Satisfied.";
-    }
-    {% endif %}
-
-{% else %}
-    var time = document.getElementById("time");
-    // time.innerText = "Time : "+"05:00";//pass time as context
-    var timer_start = setInterval(myTimer, 1000);
-    var m = 29;
-    var s = 59;
-
-      function checkSecond(sec) {
-        if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
-        if (sec < 0) {sec = "59"};
-        return sec;
-      }
-
-    function myTimer() {
-        time.innerText = "Time : "+checkSecond(m)+":"+checkSecond(s);
-        document.getElementById("id_paused_time").value= "Time : "+checkSecond(m)+":"+checkSecond(s);
-        s -= 1;
-        if(s < 0) {
-            s = 59;
-            m -= 1;
-            if (m < 0) {
-                clearInterval(timer_start);
-                document.getElementById("id_answer").disabled = true;
-            }
-            if(m<5){
-                document.getElementById("time").style.backgroundColor="red";
-            }
-        }
-    }
-    window.onload=function() {
-        var auto = setTimeout(function () {
-            autoRefresh();
-        }, 100);
-
-        function submitform() {
-            document.forms["AnswerForm"].submit();
-        }
-
-        function autoRefresh() {
-            clearTimeout(auto);
-            auto = setTimeout(function () {
-                submitform();
-                autoRefresh();
-            }, 1800000);
-        }
-
-    }
-
-
-     function wordCount( val ){
-                    var wom = val.match(/\S+/g);
-                    return {
-                        words  : (wom ? wom.length : 0)
-                    };
-                }
-
-      var textarea = document.getElementById("id_answer");
-      var result   = document.getElementById("result");
-      textarea.addEventListener("input", function(){
-          var v = wordCount( this.value );
-          result.innerHTML = (
-              "Word Count = "+ v.words
-          );
-       }, false);
-
-{% endif %}
-
-</script>
 </html>
